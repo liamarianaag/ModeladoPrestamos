@@ -6,19 +6,17 @@ import os
 # 1. Configuración de la página
 st.set_page_config(page_title="Predicción de Préstamos - ISIL", layout="centered")
 st.title("🚀 Sistema de Evaluación de Préstamos")
-st.write("Esta aplicación predice si un préstamo será aprobado basándose en el perfil del cliente.")
 
 # Requisito: Enlace al Colab
-st.markdown("[🔗 Ver cuaderno de código en Google Colab](https://colab.research.google.com/drive/TU_LINK_DE_COLAB_AQUI)")
+st.markdown("[🔗 Ver cuaderno de código en Google Colab](https://colab.research.google.com/drive/1jV7LpI9J6R6_P9z3G_S7q1N_G7U_Z0vS)") # Asegúrate de poner tu link real
 
 # 2. Carga del modelo
-# El archivo debe estar en la carpeta 'modelos' en GitHub
 modelo_path = os.path.join('modelos', 'modelo_prestamos.pkl')
 
 if os.path.exists(modelo_path):
     model = joblib.load(modelo_path)
     
-    # 3. Interfaz de usuario (Inputs)
+    # 3. Formulario de entrada
     col1, col2 = st.columns(2)
     
     with col1:
@@ -28,17 +26,17 @@ if os.path.exists(modelo_path):
         
     with col2:
         term = st.number_input("Plazo del Préstamo (Meses)", min_value=1, value=360)
-        credit = st.selectbox("Historial Crediticio", options=[(1, "Bueno"), (0, "Malo")], format_func=lambda x: x[1])
-        area = st.selectbox("Área de la Propiedad", options=[(0, "Rural"), (1, "Semiurbana"), (2, "Urbana")], format_func=lambda x: x[1])
+        credit = st.selectbox("Historial Crediticio", options=[(1.0, "Bueno"), (0.0, "Malo")], format_func=lambda x: x[1])
+        area = st.selectbox("Área de la Propiedad", options=[(0.0, "Rural"), (1.0, "Semiurbana"), (2.0, "Urbana")], format_func=lambda x: x[1])
 
     st.markdown("---")
 
-    # 4. Lógica de Predicción
+    # 4. Botón y Predicción
     if st.button("Evaluar Préstamo"):
-        # Calculamos la variable que creaste en el segundo modelo
-        cuota = loan_amount / term
+        # Cálculo de la cuota mensual
+        cuota = float(loan_amount) / float(term)
         
-        # DEFINICIÓN DE COLUMNAS (Orden exacto de tu X_train)
+        # NOMBRES EXACTOS DE COLUMNAS SEGÚN TU COLAB
         columnas = [
             'ApplicantIncome', 
             'CoapplicantIncome', 
@@ -49,7 +47,7 @@ if os.path.exists(modelo_path):
             'Cuota_Mensual'
         ]
         
-        # Crear DataFrame para el modelo
+        # Creamos el DataFrame con los nombres correctos
         datos_entrada = pd.DataFrame([[
             float(income), 
             float(co_income), 
@@ -60,14 +58,14 @@ if os.path.exists(modelo_path):
             float(cuota)
         ]], columns=columnas)
         
-        # Ejecutar predicción
+        # Realizar la predicción
         prediccion = model.predict(datos_entrada)
         
         if prediccion[0] == 1:
             st.success("✅ **¡PRÉSTAMO APROBADO!**")
             st.balloons()
         else:
-            st.error("❌ **PRÉSTAMO RECHAZADO.** El perfil presenta un alto riesgo de impago.")
+            st.error("❌ **PRÉSTAMO RECHAZADO.**")
             
 else:
-    st.error("⚠️ No se encontró el modelo en 'modelos/modelo_prestamos.pkl'. Verifica tu repositorio de GitHub.")
+    st.error("⚠️ No se encontró el modelo en 'modelos/modelo_prestamos.pkl'.")
