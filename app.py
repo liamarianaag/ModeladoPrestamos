@@ -9,7 +9,7 @@ st.set_page_config(page_title="PA2 - Evaluación de Préstamos", layout="centere
 # --- INFORMACIÓN DEL ESTUDIANTE ---
 st.sidebar.header("Datos de la Alumna")
 st.sidebar.write("**Nombre:** Lia Mariana Aguilar Gonzales")
-st.sidebar.write("**Código ISIL:** [Ingresa aquí tu código]") # Reemplaza con tu código real
+
 
 # 2. Título y Recursos
 st.title("🚀 Sistema de Evaluación de Préstamos")
