@@ -1,0 +1,16 @@
+PROMPT UTILIZADO PARA EL DESPLIEGUE:
+
+"Actúa como un experto en Ciencia de Datos y Python. Ayúdame a crear una aplicación web usando Streamlit que cargue un modelo de Machine Learning previamente entrenado y guardado como 'modelo_prestamos.pkl' (usando XGBoost). 
+
+La aplicación debe permitir al usuario ingresar los siguientes datos:
+1. Ingreso del solicitante (ApplicantIncome)
+2. Ingreso del co-solicitante (CoapplicantIncome)
+3. Monto del préstamo (LoanAmount)
+4. Plazo del préstamo en meses (Loan_Amount_Term)
+5. Historial Crediticio (0 para malo, 1 para bueno)
+6. Área de la propiedad (Rural, Semiurbana, Urbana)
+
+Requisitos adicionales:
+- El código debe calcular automáticamente una nueva variable llamada 'Cuota_Mensual' dividiendo el monto entre el plazo, ya que el modelo fue entrenado con esa característica.
+- El modelo se encuentra dentro de una carpeta llamada 'modelos/'.
+- La interfaz debe ser limpia, incluir un título y un enlace directo a mi cuaderno de Google Colab."
