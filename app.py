@@ -36,9 +36,26 @@ if os.path.exists(modelo_path):
         cuota = loan_amount / term
         
         # Creamos el DataFrame para el modelo (debe tener el mismo orden que en el entrenamiento)
+        # Asegúrate de que los nombres de las columnas coincidan exactamente con tu entrenamiento
+        columnas = [
+            'ApplicantIncome', 
+            'CoapplicantIncome', 
+            'LoanAmount', 
+            'Loan_Amount_Term', 
+            'Credit_History', 
+            'Property_Area', 
+            'Cuota_Mensual'
+        ]
+        
         datos_entrada = pd.DataFrame([[
-            income, co_income, loan_amount, term, credit[0], area[0], cuota
-        ]], columns=['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Cuota_Mensual'])
+            income, 
+            co_income, 
+            loan_amount, 
+            term, 
+            credit[0], 
+            area[0], 
+            cuota
+        ]], columns=columnas)
         
         # Predicción
         prediccion = model.predict(datos_entrada)
