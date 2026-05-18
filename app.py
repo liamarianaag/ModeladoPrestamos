@@ -53,22 +53,19 @@ datos_entrada = pd.DataFrame([[
 ]], columns=columnas_modelo)
 
 # 3. Botón de Predicción
-    if st.button("Evaluar Préstamo"):
-        # Calculamos la variable que inventamos
-        cuota = loan_amount / term
-        
-        # Nombres exactos de las columnas (como en tu Colab)
-        columnas = ['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 
-                    'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Cuota_Mensual']
-        
-        # Creamos el DataFrame
-        datos_entrada = pd.DataFrame([[income, co_income, loan_amount, term, 
-                                       credit[0], area[0], cuota]], columns=columnas)
-        
-        # Esta línea debe tener exactamente el mismo espacio que la de arriba
-        prediccion = model.predict(datos_entrada)
-        
-        if prediccion[0] == 1:
-            st.success("✅ ¡Préstamo Aprobado!")
-        else:
-            st.error("❌ Préstamo Rechazado (Alto Riesgo)")
+   if st.button("Evaluar Préstamo"):
+    # Todo lo que pase al presionar el botón debe tener 4 espacios de sangría
+    cuota = loan_amount / term
+    
+    columnas = ['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 
+                'Loan_Amount_Term', 'Credit_History', 'Property_Area', 'Cuota_Mensual']
+    
+    datos_entrada = pd.DataFrame([[income, co_income, loan_amount, term, 
+                                   credit[0], area[0], cuota]], columns=columnas)
+    
+    prediccion = model.predict(datos_entrada)
+    
+    if prediccion[0] == 1:
+        st.success("✅ ¡Préstamo Aprobado!")
+    else:
+        st.error("❌ Préstamo Rechazado (Alto Riesgo)")
